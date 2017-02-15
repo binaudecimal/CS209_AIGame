@@ -36,15 +36,14 @@ public class AICS209 {
             System.out.println("Show me what you've got");
             location = sc.nextInt();
             if(location <= boardx){
-                AICS209.insertMove(location, ++player, boardx, boardy, board);
-                player = player%2;
+                player = AICS209.insertMove(location, player, boardx, boardy, board);
             }
         }
         
     }
     
     static public void printBoard(int[][] board){
-        for(int i = 0; i< board[0].length; i++){ ////until 6
+        for(int i = board[0].length-1; i>=0; i--){ ////until 6
             for(int j = 0; j<board.length; j++){ //until 5
                 System.out.print("["+ board[j][i] + "]");
             }
@@ -52,16 +51,21 @@ public class AICS209 {
         }
     }
     
-    static public void insertMove(int location, int player, int boardx, int boardy, int[][] board){ //5
+    static public int insertMove(int location, int player, int boardx, int boardy, int[][] board){ //5
+        ++player;
         if(board[location-1][0]>=boardy-1){
             System.out.println("Location is already full " + board[location][0]);
+            --player;
         }
         else{
             board[location-1][board[location-1][0]+1] = player;
             board[location-1][0]++;
         }
         
+        
         printBoard(board);
+        return player%2;
+        
     }
     
 }
